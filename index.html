@@ -11,21 +11,11 @@
       (function () {
         var primus = new Primus();
 
-        primus.on('hello', function (msg) {
-          console.log(msg);
-        });
-
-        primus.send('join', 'news sport', function () {
-          console.log('joined rooms');
-        });
-
-        primus.on('sport', function (msg) {
-          console.log(msg);
-        });
-
-        primus.on('news', function (msg) {
-          console.log(msg);
-        });
+      
+primus.on('news', function (data) {
+  console.log(data);
+  primus.send('my other event', { my: 'data' });
+});
       })();
     </script>
   <body>
