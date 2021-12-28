@@ -1,7 +1,23 @@
-const express = require("express");
-const app = express();
 const port = process.env.PORT || 3001;
+var express = require('express')
+  , Primus = require('primus.io')
+  , http = require('http')
+  , app = express()
+  , server = http.createServer(app);
 
-app.get("/", (req, res) => res.send("Hello there!"));
+// Primus server
+var primus = new Primus(server);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+primus.on('connection', function (spark) {
+  spark.send('news', { hello: 'world' });
+  spark.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+
+// serve index.html
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/index.html');
+});
+
+server.listen(port);
