@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Primus</title>
+  </head>
+  <body>
+    <h1>Welcome to Primus.IO demo.</h2>
+    <script src="/primus/primus.io.js"></script>
+    <script>
+      (function () {
+        var primus = new Primus();
+
+        primus.on('hello', function (msg) {
+          console.log(msg);
+        });
+
+        primus.send('join', 'news sport', function () {
+          console.log('joined rooms');
+        });
+
+        primus.on('sport', function (msg) {
+          console.log(msg);
+        });
+
+        primus.on('news', function (msg) {
+          console.log(msg);
+        });
+      })();
+    </script>
+  <body>
+</html>
